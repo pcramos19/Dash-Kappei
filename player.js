@@ -8,49 +8,23 @@ class Player {
     this.height = 100;
 
     this.image = new Image();
-    this.image.src = "./img/player.png";
+    this.image.src = "./img/logo.jpg";
 
-    this.posX = 20;
-    this.posY = this.gameHeight - this.height - 20;
+    this.posX = 100;
+    this.posY = 540;
     this.posY0 = this.posY;
-
-    this.image.frames = 3;
-    this.image.framesIndex = 0;
 
     this.keys = keys;
 
     this.velY = 1;
 
-    this.bullets = [];
-
     this.setListeners();
   }
 
-  draw(framesCounter) {
-    this.ctx.drawImage(
-      this.image,
-      this.image.framesIndex * Math.floor(this.image.width / this.image.frames),
-      0,
-      Math.floor(this.image.width / this.image.frames),
-      this.image.height,
-      this.posX,
-      this.posY,
-      this.width,
-      this.height
-    );
+  draw() {
+    this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height)
+}
 
-    this.animate(framesCounter);
-    this.bullets.forEach(bullet => bullet.draw());
-  }
-
-  animate(framesCounter) {
-    if (framesCounter % 5 == 0) {
-      this.image.framesIndex++;
-    }
-    if (this.image.framesIndex > this.image.frames - 1) {
-      this.image.framesIndex = 0;
-    }
-  }
 
   move() {
     let gravity = 0.4;
@@ -63,7 +37,6 @@ class Player {
       this.velY = 1;
     }
 
-    this.bullets.forEach(bullet => bullet.move());
   }
 
   setListeners() {
@@ -82,14 +55,5 @@ class Player {
           break;
       }
     });
-  }
-
-  shoot() {
-    this.bullets.push(new Bullets(this.ctx, this.posX, this.posY, this.posY0, this.width, this.height));
-  }
-
-  clearBullets() {
-    console.log(this.bullets);
-    this.bullets = this.bullets.filter(bull => bull.posX <= this.gameWidth);
   }
 }

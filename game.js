@@ -16,7 +16,6 @@ const game = {
     this.canvas = document.getElementById("myCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
-    scoreboard.init(this.ctx);
     this.start();
   },
 
@@ -31,13 +30,6 @@ const game = {
       this.drawAll();
       this.moveAll();
       this.generateObstacles();
-      this.clearObstacles();
-      this.player.clearBullets();
-      if (this.isCollision()) {
-        this.gameOver();
-      }
-      this.score += 0.01;
-      this.drawScore();
     }, 1000 / this.FPS);
   },
 
@@ -48,55 +40,37 @@ const game = {
     this.canvas.height = this.height;
   },
 
+  reset() {
+    this.background = new Background(this.ctx, this.width, this.height, "./img/Fondo chicho.png");
+    this.player = new Player(this.ctx, this.width, this.height, this.keys);
+    this.obstacles = []
+  },
+
   drawAll() {
     this.background.draw();
-    this.player.draw(this.framesCounter);
-    this.obstacles.forEach(obs => obs.draw());
+    this.player.draw();
+    this.obstacles.forEach(obs => obs.draw())
   },
 
   moveAll() {
     this.background.move();
     this.player.move();
-    this.obstacles.forEach(obs => obs.move());
+    this.obstacles.forEach(obs => obs.move())
   },
 
-  reset() {
-    this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
-    this.player = new Player(this.ctx, this.width, this.height, this.keys);
-    this.obstacles = [];
-    this.scoreboard = scoreboard;
+  generateObstacles() {
+    if (this.framesCounter % 100 == 0) {
+      this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
+      console.log(this.obstacles);
+    }
   },
 
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   },
 
-  generateObstacles() {
-    if (this.framesCounter % 90 == 0) {
-      this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
-      console.log(this.obstacles);
-    }
-  },
-
-  clearObstacles() {
-    this.obstacles = this.obstacles.filter(obs => obs.posX >= 0);
-  },
-
-  isCollision() {
-    return this.obstacles.some(obs => {
-      return (
-        this.player.posX + this.player.width >= obs.posX &&
-        this.player.posY + this.player.height >= obs.posY &&
-        this.player.posX <= obs.posX + obs.width
-      );
-    });
-  },
-
   gameOver() {
     clearInterval(this.interval);
   },
 
-  drawScore() {
-    this.scoreboard.update(this.score);
-  }
 };
