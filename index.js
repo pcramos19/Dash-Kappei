@@ -1,3 +1,7 @@
 window.onload = () => {
-  game.init();
+  document.addEventListener("keydown", e => {
+  if (e.keyCode === 13){
+    game.init();
+    }
+  });
 };

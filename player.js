@@ -11,12 +11,12 @@ class Player {
     this.image.src = "./img/logo.jpg";
 
     this.posX = 100;
-    this.posY = 540;
+    this.posY = 580;
     this.posY0 = this.posY;
 
     this.keys = keys;
 
-    this.velY = 1;
+    this.velY = 5;
 
     this.setListeners();
   }
@@ -41,19 +41,13 @@ class Player {
 
   setListeners() {
     document.addEventListener("keydown", e => {
-      switch (e.keyCode) {
-        case this.keys.TOP:
-          if (this.posY >= this.posY0) {
+          if (e.keyCode === 32){
             this.posY -= 40;
-            this.velY -= 8;
-            console.log("SALTANDO!");
+            this.velY -= 10;
+          } else {
+            this.posY = this.posY0;
+            this.velY = 1;
           }
-          break;
-        case this.keys.SPACE:
-          console.log("DISPARANDO");
-          this.shoot();
-          break;
-      }
     });
   }
 }
