@@ -19,7 +19,6 @@ body {
 
 #home img{
     margin: 80px;
-
     width: 400px;
 }
 
@@ -28,7 +27,7 @@ body {
     font-size: 110px;
 }
 
-#home button {
+button {
     margin-top: 20px;
     font-size: 20px;
     font-family: "Arcade Normal";
@@ -51,3 +50,20 @@ body {
     top: 0;
 }
 
+#game-over {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-over img{
+    margin: 80px;
+    width: 600px;
+}
+
+#game-over button {
+    font-size: 50px;
+    text-align: center;
+    padding-left: 210px;
+}

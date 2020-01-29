@@ -5,12 +5,12 @@ class Basket {
         this.height = this.width;
   
         this.image = new Image();
-        this.image.src = "./img/balones.png";
+        this.image.src = "./img/canasta.png";
 
         this.posX = gameWidth;
-        this.posY = 300;
+        this.posY = 100;
 
-        this.image.frames = 6;
+        this.image.frames = 1;
         this.image.framesIndex = 0;
   
         this.velX = 10;

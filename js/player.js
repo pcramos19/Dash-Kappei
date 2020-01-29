@@ -11,7 +11,7 @@ class Player {
     this.image.src = "./img/ChichoSprite.png";
 
     this.posX = 100;
-    this.posY = 520;
+    this.posY = 550;
     this.posY0 = this.posY;
 
     this.image.frames = 10;

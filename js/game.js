@@ -30,6 +30,7 @@ const game = {
       this.framesCounter++;
       this.clear();
       this.drawAll();
+      // this.clearMessages();
       this.moveAll();
       this.generateObstacles();
       this.clearObstacles();
@@ -39,7 +40,7 @@ const game = {
       this.clearGirls();
       this.collision();
       this.winPoints();
-      this.score += 0;
+      // this.score += 0;
       this.drawScore();
     }, 1000 / this.FPS);
   },
@@ -58,14 +59,19 @@ const game = {
     this.basket = [];
     this.girl = [];
     this.scorePoints = scorePoints;
+    // this.messages = [];
   },
 
   drawAll() {
     this.background.draw();
     this.player.draw(this.framesCounter);
-    this.obstacles.forEach(obs => obs.draw(this.framesCounter))
-    this.basket.forEach(bsk => bsk.draw(this.framesCounter))
-    this.girl.forEach(n => n.draw())
+    this.obstacles.forEach(obs => obs.draw(this.framesCounter));
+    this.basket.forEach(bsk => bsk.draw(this.framesCounter));
+    this.girl.forEach(n => n.draw(this.framesCounter));
+  //   this.messages.forEach(message => {
+  //     message.draw();
+  //     message.fadeOut();
+  // })
   },
 
   moveAll() {
@@ -77,7 +83,7 @@ const game = {
   },
 
   generateObstacles() {
-    if (this.framesCounter % 150 == 0) {
+    if (this.framesCounter % 130 == 0) {
       this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
       console.log(this.obstacles);
     }
@@ -88,7 +94,7 @@ const game = {
   },
 
   generateBasket() {
-    if (this.framesCounter % 250 == 0) {
+    if (this.framesCounter % 300 == 0) {
       this.basket.push(new Basket(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
       console.log(this.basket);
     }
@@ -99,7 +105,7 @@ const game = {
   },
 
   generateGirls() {
-    if (this.framesCounter % 310 == 0) {
+    if (this.framesCounter % 500 == 0) {
       this.girl.push(new Girl(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
       console.log(this.girl);
     }
@@ -111,8 +117,8 @@ const game = {
 
   collision() {
     this.obstacles.forEach((elm) => {
-      if (this.player.posX + this.player.width -120 >= elm.posX &&
-          this.player.posY + this.player.height -120 >= elm.posY &&
+      if (this.player.posX + this.player.width -100 >= elm.posX &&
+          this.player.posY + this.player.height -150 >= elm.posY &&
           this.player.posX <= elm.posX + elm.width &&
           this.player.posY <= elm.posY + elm.height) {
           return this.gameOver();
@@ -126,7 +132,7 @@ const game = {
           this.player.posY + this.player.height >= elm.posY &&
           this.player.posX <= elm.posX + elm.width &&
           this.player.posY <= elm.posY + elm.height) {
-          this.score += .3;
+          this.score += .15;
           this.threePoint()
           // this.mySetOut = setTimeout(() => {
           // clearTimeOut(this.mySetOut)
@@ -139,7 +145,7 @@ const game = {
         this.player.posY + this.player.height >= elm.posY &&
         this.player.posX <= elm.posX + elm.width &&
         this.player.posY <= elm.posY + elm.height) {
-        this.score += .5;
+        this.score += .3;
         this.nice()
         //   this.mySetOut = setTimeout(() => {
         //   clearTimeOut(this.mySetOut)
@@ -156,13 +162,19 @@ const game = {
     this.ctx.fillText("Niiiice", 100, 100);
   },
 
+//   clearMessages: function () {
+//     this.messages = this.messages.filter(message => message.posY > 0);
+// },
+
   drawScore() {
     this.scorePoints.update(this.score);
   },
 
   gameOver() {
     clearInterval(this.interval)
-    // alert('Loooooser');
+    document.getElementById("game-over").style.display= "block";
+    document.getElementById("myCanvas").style.display= "none";
+    document.getElementById("home").style.display= "none";
 },
 
   clear() {
