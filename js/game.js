@@ -62,9 +62,9 @@ const game = {
 
   drawAll() {
     this.background.draw();
-    this.player.draw();
-    this.obstacles.forEach(obs => obs.draw())
-    this.basket.forEach(bsk => bsk.draw())
+    this.player.draw(this.framesCounter);
+    this.obstacles.forEach(obs => obs.draw(this.framesCounter))
+    this.basket.forEach(bsk => bsk.draw(this.framesCounter))
     this.girl.forEach(n => n.draw())
   },
 
@@ -77,7 +77,7 @@ const game = {
   },
 
   generateObstacles() {
-    if (this.framesCounter % 100 == 0) {
+    if (this.framesCounter % 150 == 0) {
       this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
       console.log(this.obstacles);
     }
@@ -111,8 +111,8 @@ const game = {
 
   collision() {
     this.obstacles.forEach((elm) => {
-      if (this.player.posX + this.player.width >= elm.posX &&
-          this.player.posY + this.player.height >= elm.posY &&
+      if (this.player.posX + this.player.width -120 >= elm.posX &&
+          this.player.posY + this.player.height -120 >= elm.posY &&
           this.player.posX <= elm.posX + elm.width &&
           this.player.posY <= elm.posY + elm.height) {
           return this.gameOver();

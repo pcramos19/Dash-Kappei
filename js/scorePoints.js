@@ -9,6 +9,7 @@ const scorePoints = {
   
     update(score) {
       // this.ctx.fillRect(550, 20, 400, 300);
+      // this.ctx.beginPath();
       // this.ctx.strokeStyle = 'yellow';
       // this.ctx.lineWidth = 4;
       // this.ctx.lineJoin = "bevel";
@@ -27,6 +28,7 @@ const scorePoints = {
       // this.ctx.moveTo(600, 180);
       // this.ctx.lineTo(600, 20);
       // this.ctx.stroke();
+      // this.ctx.closePath();
 
       this.ctx.fillStyle = "yellow";
       this.ctx.fillText("Score", 680, 65);

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: "Arcade Normal";
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
@@ -25,12 +25,13 @@ body {
 
 #home h1 {
     padding-top: 10px;
-    font-size: 200px;
+    font-size: 110px;
 }
 
 #home button {
     margin-top: 20px;
-    font-size: 50px;
+    font-size: 20px;
+    font-family: "Arcade Normal";
     border:0;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     animation: blinker 2s linear infinite;
