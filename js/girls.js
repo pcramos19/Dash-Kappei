@@ -1,23 +1,23 @@
 class Girl {
     constructor(ctx, gameWidth, gameHeight, playerPosY0, playerHeight){
         this.ctx = ctx;
-        this.width = 200;
-        this.height = this.width;
+        this.width =110;
+        this.height = 100;
   
         this.image = new Image();
-        this.image.src = "./img/girls.png";
+        this.image.src = "./img/rosita.png";
 
         this.posX = gameWidth;
-        this.posY = playerPosY0 + playerHeight - this.height;
+        this.posY = 350;
 
-        this.image.frames = 7;
+        this.image.frames = 1;
         this.image.framesIndex = 0;
   
-        this.velX = 10;
+        this.velX = 5;
     }
 
     draw(framesCounter) {
-      this.velX+=.03 
+      this.velX+=.001 
       this.ctx.drawImage(
         this.image,
         this.image.framesIndex * Math.floor(this.image.width / this.image.frames),

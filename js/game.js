@@ -8,12 +8,12 @@ const game = {
   score: 0,
   obstacles: [],
   basket: [],
-  messages: [],
   girl: [],
   keys: {
     SPACE: 32
   },
   showMessage: false,
+  showGirl: false,
 
   init() {
     this.canvas = document.getElementById("myCanvas");
@@ -32,7 +32,6 @@ const game = {
       this.framesCounter++;
       this.clear();
       this.drawAll();
-      this.clearMessages();
       this.moveAll();
       this.generateObstacles();
       this.clearObstacles();
@@ -42,8 +41,15 @@ const game = {
       this.clearGirls();
       this.collision();
       this.winPoints();
-      // this.score += 0;
+      this.score += 0;
       this.drawScore();
+
+      if (this.showMessage) {
+        this.threePoint();
+      }
+      if (this.showGirl) {
+        this.ohmama();
+      }
     }, 1000 / this.FPS);
   },
 
@@ -55,18 +61,31 @@ const game = {
   },
 
   reset() {
-    this.background = new Background(this.ctx, this.width, this.height, "./img/Parquet.png");
+    this.background = new Background(
+      this.ctx,
+      this.width,
+      this.height,
+      "./img/Parquet.png"
+    );
     this.player = new Player(this.ctx, this.width, this.height, this.keys);
     this.obstacles = [];
     this.basket = [];
     this.girl = [];
     this.scorePoints = scorePoints;
-    this.messages = [];
     this.tdAudio = new Howl({
-      src: ['./sounds/chicho-terremoto.mp3'],
-      volume: 0.2,
+      src: ["./sounds/chicho-terremoto.mp3"],
+      volume: 0.1,
       autoplay: true
     });
+    this.trespuntos = new Trespuntos (this.ctx,
+      this.width,
+      this.height);
+    this.gameover = new Gameover (this.ctx,
+        this.width,
+        this.height);
+    this.nice = new Nice (this.ctx,
+          this.width,
+          this.height);
   },
 
   drawAll() {
@@ -75,24 +94,27 @@ const game = {
     this.obstacles.forEach(obs => obs.draw(this.framesCounter));
     this.basket.forEach(bsk => bsk.draw(this.framesCounter));
     this.girl.forEach(n => n.draw(this.framesCounter));
-    this.messages.forEach(message => {
-      message.draw();
-      message.fadeOut();
-    })
   },
 
   moveAll() {
     this.background.move();
     this.player.move();
-    this.obstacles.forEach(obs => obs.move())
-    this.basket.forEach(bsk => bsk.move())
-    this.girl.forEach(n => n.move())
-
+    this.obstacles.forEach(obs => obs.move());
+    this.basket.forEach(bsk => bsk.move());
+    this.girl.forEach(n => n.move());
   },
 
   generateObstacles() {
     if (this.framesCounter % 130 == 0) {
-      this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
+      this.obstacles.push(
+        new Obstacle(
+          this.ctx,
+          this.width,
+          this.height,
+          this.player.posY0,
+          this.player.height
+        )
+      );
       console.log(this.obstacles);
     }
   },
@@ -103,7 +125,15 @@ const game = {
 
   generateBasket() {
     if (this.framesCounter % 300 == 0) {
-      this.basket.push(new Basket(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
+      this.basket.push(
+        new Basket(
+          this.ctx,
+          this.width,
+          this.height,
+          this.player.posY0,
+          this.player.height
+        )
+      );
       console.log(this.basket);
     }
   },
@@ -113,8 +143,16 @@ const game = {
   },
 
   generateGirls() {
-    if (this.framesCounter % 500 == 0) {
-      this.girl.push(new Girl(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
+    if (this.framesCounter % 547 == 0) {
+      this.girl.push(
+        new Girl(
+          this.ctx,
+          this.width,
+          this.height,
+          this.player.posY0,
+          this.player.height
+        )
+      );
       console.log(this.girl);
     }
   },
@@ -124,82 +162,89 @@ const game = {
   },
 
   collision() {
-    this.obstacles.forEach((elm) => {
-      if (this.player.posX + this.player.width -100 >= elm.posX &&
-          this.player.posY + this.player.height -130 >= elm.posY &&
-          this.player.posX <= elm.posX + elm.width &&
-          this.player.posY <= elm.posY + elm.height) {
-          return this.gameOver();
-      }
-  })
-  },
-
-  winPoints () {
-    this.basket.some((elm) => {
-      if (this.player.posX + this.player.width -80 >= elm.posX &&
-          this.player.posY + this.player.height -80 >= elm.posY &&
-          this.player.posX <= elm.posX + elm.width &&
-          this.player.posY <= elm.posY + elm.height) {
-          this.score += .15;
-          this.basket.image.src = "./img/spritecanasta.png"
-          this.showMessage = true;
-      }
-        
-      if(this.showMessage) {
-        console.log('three points')
-        this.threePoint();
-      }
-      setTimeout(_=> this.showMessage = false, 5000)
-     console.log(this.showMessage)
-   });
-
-    this.girl.forEach((elm) => {
-     if (this.player.posX + this.player.width >= elm.posX &&
-        this.player.posY + this.player.height >= elm.posY &&
+    this.obstacles.forEach(elm => {
+      if (
+        this.player.posX + this.player.width - 100 >= elm.posX &&
+        this.player.posY + this.player.height - 130 >= elm.posY &&
         this.player.posX <= elm.posX + elm.width &&
-        this.player.posY <= elm.posY + elm.height) {
-        this.score += .3;
-        this.nice()
-    }
-    })
-  },
-
-  threePoint () {
-    this.ctx.fillText("3 POINTS", 100, 100);
-    const tdAudio = new Howl({
-      src: ['./sounds/three-points.mp3'],
-      volume: 0.4,
-      autoplay: true
-  });
-  },
-
-  generateMessages(){
-    this.basket.forEach((elm) => {
-      if (this.winPoints()) {
-          this.messages.push(new Message(this.ctx, this.width, this.height))
+        this.player.posY <= elm.posY + elm.height
+      ) {
+        this.tdAudio.pause();
+        const tdAudio = new Howl({
+          src: ["./sounds/game-over.mp3"],
+          volume: 0.8,
+          autoplay: true
+        });
+        return this.gameOver();
       }
     });
   },
 
-  clearMessages () {
-    this.messages = this.messages.filter(message => message.posY > 0);
+  winPoints() {
+    this.basket.some(elm => {
+      if (
+        this.player.posX + this.player.width - 80 >= elm.posX &&
+        this.player.posY + this.player.height - 80 >= elm.posY &&
+        this.player.posX <= elm.posX + elm.width &&
+        this.player.posY <= elm.posY + elm.height
+      ) {
+        this.score += 0.15;
+
+        this.showMessage = true;
+        const tdAudio = new Howl({
+          src: ["./sounds/three-points.mp3"],
+          volume: 0.6,
+          autoplay: true
+        });
+        setTimeout(_ => (this.showMessage = false), 2000);
+      }
+    });
+
+    this.girl.forEach(elm => {
+      if (
+        this.player.posX + this.player.width >= elm.posX &&
+        this.player.posY + this.player.height >= elm.posY &&
+        this.player.posX <= elm.posX + elm.width &&
+        this.player.posY <= elm.posY + elm.height
+      ) {
+        this.showGirl = true;
+        // const tdAudio = new Howl({
+        //   src: ["./sounds/three-points.mp3"],
+        //   volume: 0.6,
+        // //   autoplay: true
+        // });
+        setTimeout(_ => (this.showGirl = false), 2000);
+      }
+    });
   },
+
+  threePoint() {
+    this.trespuntos.draw();
+
+    setTimeout(_ => this.trespuntos.posY = this.trespuntos.posY0, 2000)
+  },
+
+  ohmama() {
+    this.nice.draw();
+  },
+
 
   drawScore() {
     this.scorePoints.update(this.score);
   },
 
   gameOver() {
-    clearInterval(this.interval)
+    this.gameover.draw();
+    clearInterval(this.interval);
     setTimeout(() => {
-    document.getElementById("game-over").style.display= "block";
-    document.getElementById("myCanvas").style.display= "none";
-    document.getElementById("home").style.display= "none";
-    this.tdAudio.pause()
-  },1000)
-},
+      document.getElementById("game-over").style.display = "block";
+      document.getElementById("myCanvas").style.display = "none";
+      document.getElementById("home").style.display = "none";
+      
+    }, 1800);
+  },
 
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
-  },
+  }
 };

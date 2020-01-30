@@ -11,7 +11,7 @@ class Obstacle {
       this.image.framesIndex = 0;
   
       this.posX = gameWidth;
-      this.posY = playerPosY0 + playerHeight - this.height;
+      this.posY = 350;
   
       this.velX = 10;
     }
