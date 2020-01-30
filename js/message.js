@@ -1,18 +1,18 @@
 class Message {
-    constructor(ctx, textIndex, arrowBoard, posY, width, height) {
+    constructor(ctx, width, height) {
         this.ctx = ctx;
-        this.posX = this.randomInt(arrowBoard[0].posX, arrowBoard[3].posX)-200;
-        this.posY = posY;
+        this.posX = 100;
+        this.posY = 150;
         this.width = width;
         this.height = height;
         this.alpha = 1.0;   // full opacity
         this.texts = [
-            'Perfect',
-            'Great',
-            'Good enough',
-            'Not even close'
+            '3 Puntos',
         ],
-        this.message = this.texts[textIndex].toString().toUpperCase()
+
+        this.image = new Image();
+        this.image.src = imgSource;
+
     }
 
     randomInt(min, max) {
@@ -20,9 +20,7 @@ class Message {
     }
 
     draw() {
-        this.ctx.fillStyle = "rgba(255, 255, 255, " + this.alpha + ")";
-        this.ctx.font = '1em "Press Start 2P"'
-        this.ctx.fillText(this.message, this.posX, this.posY)
+        this.ctx.fillText("3 POINTS", 100, 100);
         this.posY--;
     }
 

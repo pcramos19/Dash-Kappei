@@ -49,7 +49,7 @@ class Player {
       this.velY += gravity;
     } else {
       this.posY = this.posY0;
-      this.velY = 1;
+      this.velY = 3;
     }
 
   }

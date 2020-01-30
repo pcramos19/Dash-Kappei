@@ -1,3 +1,7 @@
+body,html{
+    overflow: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -20,12 +24,31 @@ body {
 #home img{
     margin: 80px;
     width: 400px;
+    animation: 3s alternate fliperin;
 }
+
+/* @keyframes fliperin {
+    from {
+        margin-right:100%;
+        width:20%
+      }
+  } */
 
 #home h1 {
     padding-top: 10px;
     font-size: 110px;
+    animation: 3s alternate slidein;
+
 }
+@keyframes slidein {
+    
+    from { color: black; }  /* Primer fotograma */
+    to { color: rgb(247, 12, 12); }
+    from {
+        margin-left:100%;
+        width:100%
+      }
+  }
 
 button {
     margin-top: 20px;
@@ -43,6 +66,7 @@ button {
     }
   }
 
+
 #myCanvas {
     position: absolute;
     z-index: 2;
@@ -55,15 +79,21 @@ button {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    background-color: brown;
+    width: 100vw;
+    height: 100vh;
 }
 
 #game-over img{
-    margin: 80px;
+
+    margin-left: 500px;
+    margin-top: 100px;
     width: 600px;
 }
 
 #game-over button {
     font-size: 50px;
     text-align: center;
-    padding-left: 210px;
+    margin-top: 50px;
+    margin-left: 600px;
 }

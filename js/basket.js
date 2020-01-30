@@ -8,7 +8,7 @@ class Basket {
         this.image.src = "./img/canasta.png";
 
         this.posX = gameWidth;
-        this.posY = 100;
+        this.posY = 190;
 
         this.image.frames = 1;
         this.image.framesIndex = 0;
