@@ -165,17 +165,20 @@ const game = {
         this.player.posX + this.player.width - 80 >= elm.posX &&
         this.player.posY + this.player.height - 80 >= elm.posY &&
         this.player.posX <= elm.posX + elm.width &&
-        this.player.posY <= elm.posY + elm.height
+        this.player.posY <= elm.posY + elm.height &&
+        !elm.touched
       ) {
-        this.score += 1;
-
+        elm.setAsTouched();
+        this.score += 3;
         this.showMessage = true;
         const tdAudio = new Howl({
           src: ["./sounds/TresPuntos.mp3"],
           volume: 0.6,
           autoplay: true
         });
-        setTimeout(_ => (this.showMessage = false), 2000);
+        setTimeout(_ => {
+          (this.showMessage = false)
+        }, 2000);
       }
     });
   },

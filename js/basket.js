@@ -14,7 +14,11 @@ class Basket {
         this.image.framesIndex = 0;
   
         this.velX = 10;
+        this.touched = false;
     }
+      setAsTouched () {
+        this.touched = true;
+      }
         
         draw(framesCounter) {
           this.velX+=.03 

@@ -9,7 +9,8 @@ class Trespuntos {
   
       this.posX = 50;
       this.posY = 150;
-      this.posY0 = 150
+      this.posY0 = 150;
+      
     }
   
     draw() {
