@@ -19,7 +19,7 @@ const game = {
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
     this.start();
-    scorePoints.init(this.ctx);
+    // scorePoints.init(this.ctx);
   },
 
   start() {
@@ -38,8 +38,8 @@ const game = {
       this.clearBasket();
       this.collision();
       this.winPoints();
-      this.score += 0;
-      this.drawScore();
+      // this.score += 0;
+      // this.drawScore();
 
       if (this.showMessage) {
         this.threePoint();
@@ -70,7 +70,7 @@ const game = {
     this.player = new Player(this.ctx, this.width, this.height, this.keys);
     this.obstacles = [];
     this.basket = [];
-    this.scorePoints = scorePoints;
+    this.scorepoints = new Scorepoints (this.ctx);
     this.tdAudio = new Howl({
       src: ["./sounds/chicho-terremoto.mp3"],
       volume: 0.4,
@@ -92,6 +92,7 @@ const game = {
     this.player.draw(this.framesCounter);
     this.obstacles.forEach(obs => obs.draw(this.framesCounter));
     this.basket.forEach(bsk => bsk.draw(this.framesCounter));
+    this.scorepoints.draw(this.score)
   },
 
   moveAll() {
@@ -166,7 +167,7 @@ const game = {
         this.player.posX <= elm.posX + elm.width &&
         this.player.posY <= elm.posY + elm.height
       ) {
-        this.score += 0.2;
+        this.score += 1;
 
         this.showMessage = true;
         const tdAudio = new Howl({
@@ -190,9 +191,9 @@ const game = {
   },
 
 
-  drawScore() {
-    this.scorePoints.update(this.score);
-  },
+  // drawScore() {
+  //   this.scorePoints.update(this.score);
+  // },
 
   gameOver() {
     this.gameover.draw();
