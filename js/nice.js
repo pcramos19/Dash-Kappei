@@ -5,7 +5,7 @@ class Nice {
       this.height = 150;
   
       this.image = new Image();
-      this.image.src = "./img/Nice.png";
+      this.image.src = "./img/nice.png";
   
       this.posX = 50;
       this.posY = 150;
