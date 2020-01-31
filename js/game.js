@@ -170,7 +170,7 @@ const game = {
 
         this.showMessage = true;
         const tdAudio = new Howl({
-          src: ["./sounds/three-points.mp3"],
+          src: ["./sounds/TresPuntos.mp3"],
           volume: 0.6,
           autoplay: true
         });
