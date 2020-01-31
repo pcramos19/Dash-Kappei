@@ -8,6 +8,8 @@ window.onload = () => {
   document.getElementById("restart").onclick = function () {
     document.getElementById("myCanvas").style.display= "block";
     document.getElementById("game-over").style.display= "none";
+    document.getElementById("game-win").style.display= "none";
+    game.restart();
     game.init();
   }
     

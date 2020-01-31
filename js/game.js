@@ -8,12 +8,11 @@ const game = {
   score: 0,
   obstacles: [],
   basket: [],
-  girl: [],
   keys: {
     SPACE: 32
   },
   showMessage: false,
-  showGirl: false,
+
 
   init() {
     this.canvas = document.getElementById("myCanvas");
@@ -37,8 +36,6 @@ const game = {
       this.clearObstacles();
       this.generateBasket();
       this.clearBasket();
-      this.generateGirls();
-      this.clearGirls();
       this.collision();
       this.winPoints();
       this.score += 0;
@@ -49,6 +46,9 @@ const game = {
       }
       if (this.showGirl) {
         this.ohmama();
+      }
+      if (this.score>=10) {
+        this.gameWin();
       }
     }, 1000 / this.FPS);
   },
@@ -70,11 +70,10 @@ const game = {
     this.player = new Player(this.ctx, this.width, this.height, this.keys);
     this.obstacles = [];
     this.basket = [];
-    this.girl = [];
     this.scorePoints = scorePoints;
     this.tdAudio = new Howl({
       src: ["./sounds/chicho-terremoto.mp3"],
-      volume: 0.1,
+      volume: 0.4,
       autoplay: true
     });
     this.trespuntos = new Trespuntos (this.ctx,
@@ -83,7 +82,7 @@ const game = {
     this.gameover = new Gameover (this.ctx,
         this.width,
         this.height);
-    this.nice = new Nice (this.ctx,
+    this.gamewin = new Girl (this.ctx,
           this.width,
           this.height);
   },
@@ -93,7 +92,6 @@ const game = {
     this.player.draw(this.framesCounter);
     this.obstacles.forEach(obs => obs.draw(this.framesCounter));
     this.basket.forEach(bsk => bsk.draw(this.framesCounter));
-    this.girl.forEach(n => n.draw(this.framesCounter));
   },
 
   moveAll() {
@@ -101,7 +99,6 @@ const game = {
     this.player.move();
     this.obstacles.forEach(obs => obs.move());
     this.basket.forEach(bsk => bsk.move());
-    this.girl.forEach(n => n.move());
   },
 
   generateObstacles() {
@@ -142,25 +139,6 @@ const game = {
     this.basket = this.basket.filter(bsk => bsk.posX > -bsk.width);
   },
 
-  generateGirls() {
-    if (this.framesCounter % 547 == 0) {
-      this.girl.push(
-        new Girl(
-          this.ctx,
-          this.width,
-          this.height,
-          this.player.posY0,
-          this.player.height
-        )
-      );
-      console.log(this.girl);
-    }
-  },
-
-  clearGirls() {
-    this.girl = this.girl.filter(n => n.posX > -n.width);
-  },
-
   collision() {
     this.obstacles.forEach(elm => {
       if (
@@ -171,7 +149,7 @@ const game = {
       ) {
         this.tdAudio.pause();
         const tdAudio = new Howl({
-          src: ["./sounds/game-over.mp3"],
+          src: ["./sounds/GolpeChicho.mp3"],
           volume: 0.8,
           autoplay: true
         });
@@ -188,7 +166,7 @@ const game = {
         this.player.posX <= elm.posX + elm.width &&
         this.player.posY <= elm.posY + elm.height
       ) {
-        this.score += 0.15;
+        this.score += 0.2;
 
         this.showMessage = true;
         const tdAudio = new Howl({
@@ -197,23 +175,6 @@ const game = {
           autoplay: true
         });
         setTimeout(_ => (this.showMessage = false), 2000);
-      }
-    });
-
-    this.girl.forEach(elm => {
-      if (
-        this.player.posX + this.player.width >= elm.posX &&
-        this.player.posY + this.player.height >= elm.posY &&
-        this.player.posX <= elm.posX + elm.width &&
-        this.player.posY <= elm.posY + elm.height
-      ) {
-        this.showGirl = true;
-        // const tdAudio = new Howl({
-        //   src: ["./sounds/three-points.mp3"],
-        //   volume: 0.6,
-        // //   autoplay: true
-        // });
-        setTimeout(_ => (this.showGirl = false), 2000);
       }
     });
   },
@@ -244,7 +205,25 @@ const game = {
     }, 1800);
   },
 
+  gameWin(){
+    this.gamewin.draw();
+    clearInterval(this.interval);
+    setTimeout(() => {
+      document.getElementById("game-win").style.display = "block";
+      document.getElementById("myCanvas").style.display = "none";
+      document.getElementById("home").style.display = "none";
+      document.getElementById("game-over").style.display = "none";
+      
+    }, 1800);
+  },
+
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
+  },
+
+  restart (){
+    this.clear();
+    clearInterval(this.interval);
+    this.score= 0;
   }
 };

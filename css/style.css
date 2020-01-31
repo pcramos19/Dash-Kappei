@@ -68,6 +68,10 @@ body {
     opacity: 1;
 }
 
+#home button :hover {
+    cursor: pointer;
+}
+
 @keyframes blinker {
     50% {
       opacity: 0;
@@ -111,3 +115,37 @@ body {
     margin-top: 0;
     margin-left: 620px;
 }
+
+button:hover {
+    cursor: pointer;
+}
+
+#game-win {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fab205;
+}
+#game-win img{
+
+    margin-left: 580px;
+    margin-top: 70px;
+    width: 400px;
+}
+
+#game-win h1 {
+    padding-top: 40px;
+    font-family: "Japanese Robot";
+    font-size: 110px;
+    animation: 4s alternate slidein;
+    margin-left: 500px;
+}
+@keyframes slidein {
+    from {
+        margin-left:100%;
+        width:100%
+      }
+  }
