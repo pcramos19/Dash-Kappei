@@ -8,7 +8,7 @@ class Gameover {
       this.image.src = "./img/game-over.png";
   
       this.posX = 540;
-      this.posY = 100;
+      this.posY = 250;
     }
   
     draw() {

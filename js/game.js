@@ -47,7 +47,7 @@ const game = {
       if (this.showGirl) {
         this.ohmama();
       }
-      if (this.score>=10) {
+      if (this.score>=50) {
         this.gameWin();
       }
     }, 1000 / this.FPS);
@@ -82,7 +82,7 @@ const game = {
     this.gameover = new Gameover (this.ctx,
         this.width,
         this.height);
-    this.gamewin = new Girl (this.ctx,
+    this.gamewin = new Gamewin (this.ctx,
           this.width,
           this.height);
   },
@@ -206,7 +206,8 @@ const game = {
   },
 
   gameWin(){
-    this.gamewin.draw();
+    // this.gamewin.draw();
+    this.tdAudio.pause();
     clearInterval(this.interval);
     setTimeout(() => {
       document.getElementById("game-win").style.display = "block";
@@ -214,7 +215,7 @@ const game = {
       document.getElementById("home").style.display = "none";
       document.getElementById("game-over").style.display = "none";
       
-    }, 1800);
+    }, 1000);
   },
 
   clear() {

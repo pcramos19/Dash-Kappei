@@ -1,4 +1,4 @@
-class Girl {
+class Gamewin {
     constructor(ctx, w, h){
       this.ctx = ctx;
       this.width = 400;

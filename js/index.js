@@ -1,5 +1,6 @@
 window.onload = () => {
   document.getElementById("game-over").style.display= "none";
+  document.getElementById("game-win").style.display= "none";
   document.addEventListener("keydown", e => {
   if (e.keyCode === 13){
     game.init();
@@ -11,6 +12,13 @@ window.onload = () => {
     document.getElementById("game-win").style.display= "none";
     game.restart();
     game.init();
+  } 
+
+  document.getElementById("restartAgain").onclick = function () {
+    document.getElementById("myCanvas").style.display= "block";
+    document.getElementById("game-over").style.display= "none";
+    document.getElementById("game-win").style.display= "none";
+    game.restart();
+    game.init();
   }
-    
 };
