@@ -1,7 +1,4 @@
-
-![enter image description here](https://github.com/pcramos19/Dash-Kappei/blob/master/img/logo.png?raw=true)
-
-# Dash Kappei
+# DASH KAPPEI
 
 Dash Kappei is the first game made with Canvas in Ironhack.
 
