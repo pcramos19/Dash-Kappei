@@ -1,6 +1,6 @@
 # DASH KAPPEI
 
-Dash Kappei is the first game made with Canvas in Ironhack.
+Dash Kappei is the first game made with Canvas.
 
 **Controls**
 
